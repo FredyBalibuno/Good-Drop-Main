@@ -46,8 +46,8 @@ export default function DonorProfilePage() {
   useEffect(() => {
     if (!user) { navigate("/", { replace: true }); return; }
     fetch(apiUrl(`/api/users/${user.id}`))
-      .then((r) => r.json())
-      .then((data) => setProfile(data as ProfileData))
+      .then((r) => r.ok ? r.json() : null)
+      .then((data) => setProfile(data as ProfileData | null))
       .catch(() => setProfile(null))
       .finally(() => setLoading(false));
   }, [user, navigate]);
