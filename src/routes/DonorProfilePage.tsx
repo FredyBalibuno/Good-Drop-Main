@@ -151,6 +151,11 @@ export default function DonorProfilePage() {
                     {s.items.slice(0, 3).map((i) => `${i.category} (${i.quantity})`).join(" · ")}
                     {s.items.length > 3 && ` +${s.items.length - 3} more`}
                   </p>
+                  {s.confirmationCode && (
+                    <p className="mt-2 font-mono text-xs font-semibold tracking-widest text-foreground/60">
+                      {s.confirmationCode}
+                    </p>
+                  )}
                 </CardContent>
               </Card>
             ))}
