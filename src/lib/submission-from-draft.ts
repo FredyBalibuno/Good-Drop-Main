@@ -31,6 +31,11 @@ function submissionQualityMessage(items: PlannedLineItem[], worst: QualityTier):
   return `One or more lines may not meet typical floor standards — staff will confirm what can be sold before you unload.`;
 }
 
+function generateConfirmationCode(): string {
+  const uuid = typeof crypto !== "undefined" ? crypto.randomUUID() : `${Date.now()}`;
+  return "GD-" + uuid.replace(/-/g, "").slice(0, 6).toUpperCase();
+}
+
 export function buildSubmissionFromDraft(input: {
   items: PlannedLineItem[];
   dropoffDate: string;
@@ -48,6 +53,7 @@ export function buildSubmissionFromDraft(input: {
 
   return {
     id: typeof crypto !== "undefined" ? crypto.randomUUID() : `sub-${Date.now()}`,
+    confirmationCode: generateConfirmationCode(),
     createdAt: new Date().toISOString(),
     donationType: input.donationType ?? "dropoff",
     pickupDetails: input.pickupDetails ?? null,

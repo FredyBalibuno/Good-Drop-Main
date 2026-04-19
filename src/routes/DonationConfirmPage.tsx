@@ -7,7 +7,8 @@ import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { PartyPopper, Truck } from "lucide-react";
+import { PartyPopper, Truck, Copy, Check } from "lucide-react";
+import { useState } from "react";
 
 export default function DonationConfirmPage() {
   const navigate = useNavigate();
@@ -26,6 +27,13 @@ export default function DonationConfirmPage() {
   if (!submission) return null;
 
   const isPickup = submission.donationType === "pickup";
+  const [copied, setCopied] = useState(false);
+
+  function copyCode() {
+    void navigator.clipboard.writeText(submission.confirmationCode);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  }
 
   return (
     <div className="space-y-10">
@@ -41,6 +49,21 @@ export default function DonationConfirmPage() {
             {isPickup
               ? "Your pickup request has been sent to staff. They will review and confirm a time with you shortly."
               : "Your pre-log helps the dock schedule enough hands, stage high-need categories, and spend more time serving shoppers instead of triaging surprises."}
+          </p>
+          <div className="flex items-center gap-3 rounded-xl border border-border bg-muted/50 px-4 py-3 w-fit">
+            <div>
+              <p className="text-xs text-muted-foreground">Your confirmation code</p>
+              <p className="text-2xl font-bold tracking-widest text-foreground">{submission.confirmationCode}</p>
+            </div>
+            <button
+              type="button"
+              onClick={copyCode}
+              className="ml-2 flex size-8 items-center justify-center rounded-lg border border-border bg-background hover:bg-muted transition-colors"
+              aria-label="Copy code"
+            >
+              {copied ? <Check className="size-4 text-emerald-500" /> : <Copy className="size-4 text-muted-foreground" />}
+            </button>
+          </div>
           </p>
         </div>
         <span className="flex size-14 shrink-0 items-center justify-center rounded-2xl border border-emerald-500/35 bg-emerald-50 text-emerald-900 dark:bg-emerald-950/80 dark:text-emerald-100">

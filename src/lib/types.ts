@@ -58,6 +58,7 @@ export interface QualityAnswers {
 
 export interface DonationSubmission {
   id: string;
+  confirmationCode: string;
   userId?: string | null;
   userName?: string | null;
   createdAt: string;
