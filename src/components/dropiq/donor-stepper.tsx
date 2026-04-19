@@ -23,9 +23,9 @@ export function DonorStepper() {
   return (
     <div className="mb-8">
       {onFullNeedsList ? (
-        <p className="mb-3 text-sm font-medium text-muted-foreground">
+        <p className="mb-3 text-sm font-medium  text-white">
           Optional reference ·{" "}
-          <Link to="/donate/plan" className="text-primary underline-offset-4 hover:underline">
+          <Link to="/donate/plan" className="text-white underline-offset-4 hover:underline">
             Back to plan your drop-off
           </Link>
         </p>

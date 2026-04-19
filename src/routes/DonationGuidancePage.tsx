@@ -12,12 +12,12 @@ export default function DonationGuidancePage() {
   return (
     <div className="space-y-10">
       <div className="max-w-2xl space-y-3">
-        <h1 className="text-3xl font-semibold tracking-tight sm:text-4xl">
+        <h1 className="text-3xl font-semibold tracking-tight sm:text-4xl text-white">
           Full needs list — optional deep dive
         </h1>
-        <p className="text-muted-foreground">
+        <p className="text-white">
           Most donors start on{" "}
-          <Link to="/donate/plan" className="font-medium text-primary underline-offset-4 hover:underline">
+          <Link to="/donate/plan" className="font-medium text-white underline underline-offset-4 hover:text-white/80">
             Plan your drop-off
           </Link>{" "}
           for live line-by-line signals. Use this page when you want the complete picture staff is
@@ -30,7 +30,7 @@ export default function DonationGuidancePage() {
           <span className="flex size-9 items-center justify-center rounded-lg bg-emerald-500/10 text-emerald-800 dark:text-emerald-200">
             <Sparkles className="size-4" />
           </span>
-          <h2 className="text-lg font-semibold">Most needed right now</h2>
+          <h2 className="text-lg font-semibold text-white">Most needed right now</h2>
         </div>
         <div className="grid gap-3 sm:grid-cols-2">
           {demand.highNeed.map((item) => (
@@ -49,7 +49,7 @@ export default function DonationGuidancePage() {
           <span className="flex size-9 items-center justify-center rounded-lg bg-amber-500/10 text-amber-900 dark:text-amber-100">
             <ThumbsUp className="size-4" />
           </span>
-          <h2 className="text-lg font-semibold">Temporarily lower priority</h2>
+          <h2 className="text-lg font-semibold text-white">Temporarily lower priority</h2>
         </div>
         <div className="grid gap-3 sm:grid-cols-2">
           {demand.lowNeed.map((item) => (
@@ -68,7 +68,7 @@ export default function DonationGuidancePage() {
           <span className="flex size-9 items-center justify-center rounded-lg bg-rose-500/10 text-rose-900 dark:text-rose-100">
             <Ban className="size-4" />
           </span>
-          <h2 className="text-lg font-semibold">Not accepted</h2>
+          <h2 className="text-lg font-semibold text-white">Not accepted</h2>
         </div>
         <div className="grid gap-3 sm:grid-cols-2">
           {demand.notAccepted.map((item) => (
@@ -111,7 +111,7 @@ export default function DonationGuidancePage() {
       </Card>
 
       <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-        <p className="text-sm text-muted-foreground">
+        <p className="text-sm text-white/80">
           Ready to turn this into a forecast for staff? Add your items on the plan screen — feedback
           updates as you type.
         </p>
