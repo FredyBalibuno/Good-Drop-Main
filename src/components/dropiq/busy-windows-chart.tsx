@@ -43,7 +43,10 @@ export function BusyWindowsChart({
               background: "var(--card)",
               fontSize: 12,
             }}
-            formatter={(v: number) => [`${v} donor${v !== 1 ? "s" : ""}`, "Arrivals"]}
+            formatter={(value) => {
+              const v = typeof value === "number" && Number.isFinite(value) ? value : Number(value) || 0;
+              return [`${v} donor${v !== 1 ? "s" : ""}`, "Arrivals"];
+            }}
           />
           <Bar dataKey="count" name="Donors" fill="var(--chart-2)" radius={[6, 6, 0, 0]} />
         </BarChart>

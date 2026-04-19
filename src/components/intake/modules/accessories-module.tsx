@@ -26,7 +26,7 @@ const B1_OPTIONS = [
 export function AccessoriesModule({ onComplete }: { onComplete: (p: CategoryModulePayload) => void }) {
   const [step, setStep] = useState<"intro" | "b1" | "b2" | "b3" | "b4">("intro");
   const [types, setTypes] = useState<Set<string>>(new Set());
-  const [accum, setAccum] = useState<CategoryModulePayload>({ blocks: [], recycling: [], retailNotes: [] });
+  const [, setAccum] = useState<CategoryModulePayload>({ blocks: [], recycling: [], retailNotes: [] });
 
   const toggle = (id: string) => {
     setTypes((prev) => {

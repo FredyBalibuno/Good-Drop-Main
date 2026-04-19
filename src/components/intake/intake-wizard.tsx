@@ -198,7 +198,7 @@ export function IntakeWizard() {
   };
 
   return (
-    <div className="mx-auto flex min-h-0 w-full max-w-3xl flex-1 flex-col space-y-8 pb-16">
+    <div className="mx-auto w-full max-w-3xl shrink-0 space-y-8 pb-16">
       <div className="flex items-start justify-between gap-4">
         <div className="space-y-2">
           <h1 className="text-3xl font-semibold tracking-tight text-white [text-shadow:0_1px_3px_rgba(0,0,0,0.75),0_2px_24px_rgba(0,0,0,0.45)] sm:text-4xl">
@@ -217,7 +217,7 @@ export function IntakeWizard() {
         </Link>
       </div>
 
-      <Card className="border-border/80 shadow-sm">
+      <Card className="shrink-0 border-border/80 shadow-sm">
         <CardHeader className="border-b border-border/60 bg-muted/20">
           <CardTitle className="text-base font-semibold">{sectionTitle()}</CardTitle>
         </CardHeader>

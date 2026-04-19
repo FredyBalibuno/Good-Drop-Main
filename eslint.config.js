@@ -20,4 +20,16 @@ export default defineConfig([
       globals: globals.browser,
     },
   },
+  {
+    files: [
+      'src/components/ui/badge.tsx',
+      'src/components/ui/button.tsx',
+      'src/components/ui/tabs.tsx',
+      'src/context/auth-context.tsx',
+      'src/context/donation-store.tsx',
+    ],
+    rules: {
+      'react-refresh/only-export-components': 'off',
+    },
+  },
 ])

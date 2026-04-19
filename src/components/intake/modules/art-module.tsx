@@ -30,7 +30,7 @@ export function ArtModule({ onComplete }: { onComplete: (p: CategoryModulePayloa
   const [step, setStep] = useState<"intro" | "f1" | "f2" | "f2t" | "f3">("intro");
   const [types, setTypes] = useState<Set<string>>(new Set());
   const [damageNote, setDamageNote] = useState("");
-  const [p, setP] = useState<CategoryModulePayload>({ blocks: [], recycling: [], retailNotes: [] });
+  const [, setP] = useState<CategoryModulePayload>({ blocks: [], recycling: [], retailNotes: [] });
 
   const hasJewelry = types.has("jewelry");
 

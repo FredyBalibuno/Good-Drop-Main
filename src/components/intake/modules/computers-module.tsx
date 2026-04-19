@@ -31,7 +31,7 @@ const I1 = [
 export function ComputersModule({ onComplete }: { onComplete: (p: CategoryModulePayload) => void }) {
   const [step, setStep] = useState<"intro" | "i1" | "i2" | "i3" | "i4" | "i5">("intro");
   const [types, setTypes] = useState<Set<string>>(new Set());
-  const [p, setP] = useState<CategoryModulePayload>({ blocks: [], recycling: [], retailNotes: [] });
+  const [, setP] = useState<CategoryModulePayload>({ blocks: [], recycling: [], retailNotes: [] });
 
   const hasPrinter = types.has("printer");
   const hasSoftware = types.has("software");

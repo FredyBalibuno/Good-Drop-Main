@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import type { ConditionNote, HardBlock, IntakeCategoryId } from "@/lib/intake-flow/types";
+import type { IntakeCategoryId } from "@/lib/intake-flow/types";
 import { IntakeBigChoice } from "@/components/intake/intake-big-choice";
 import { IntakeMultiPick } from "@/components/intake/intake-multi-pick";
 import type { CategoryModulePayload } from "@/components/intake/modules/types";
@@ -36,7 +36,7 @@ export function ElectronicsModule({ onComplete }: { onComplete: (p: CategoryModu
   >("intro");
   const [types, setTypes] = useState<Set<string>>(new Set());
   const [brokenNote, setBrokenNote] = useState("");
-  const [p, setP] = useState<CategoryModulePayload>({ blocks: [], recycling: [], retailNotes: [] });
+  const [, setP] = useState<CategoryModulePayload>({ blocks: [], recycling: [], retailNotes: [] });
 
   const hasTv = types.has("tv");
   const hasLawn = types.has("lawn");

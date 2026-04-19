@@ -30,7 +30,7 @@ const H1 = [
 export function BooksMediaModule({ onComplete }: { onComplete: (p: CategoryModulePayload) => void }) {
   const [step, setStep] = useState<"intro" | "h1" | "h2" | "h3" | "h4" | "h5">("intro");
   const [types, setTypes] = useState<Set<string>>(new Set());
-  const [p, setP] = useState<CategoryModulePayload>({ blocks: [], recycling: [], retailNotes: [] });
+  const [, setP] = useState<CategoryModulePayload>({ blocks: [], recycling: [], retailNotes: [] });
 
   const hasGames = types.has("games");
   const hasCdDvd = types.has("cds") || types.has("dvd");

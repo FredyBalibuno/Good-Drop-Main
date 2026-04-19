@@ -34,7 +34,7 @@ export function LinensModule({ onComplete }: { onComplete: (p: CategoryModulePay
   >("intro");
   const [types, setTypes] = useState<Set<string>>(new Set());
   const [stainCount, setStainCount] = useState("");
-  const [payload, setPayload] = useState<CategoryModulePayload>({
+  const [, setPayload] = useState<CategoryModulePayload>({
     blocks: [],
     recycling: [],
     retailNotes: [],

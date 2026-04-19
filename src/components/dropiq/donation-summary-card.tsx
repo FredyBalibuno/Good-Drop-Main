@@ -19,7 +19,7 @@ export function DonationSummaryCard({
   const total = items.reduce((a, i) => a + i.quantity, 0);
 
   return (
-    <Card className="border border-border bg-card shadow-md ring-1 ring-black/5 dark:ring-white/10">
+    <Card className="shrink-0 border border-border bg-card shadow-md ring-1 ring-black/5 dark:ring-white/10">
       <CardHeader className="border-b border-border/60 bg-muted/30 pb-3">
         <CardTitle className="flex items-center gap-2 text-base font-semibold">
           <span className="flex size-9 items-center justify-center rounded-lg bg-primary/10 text-primary">

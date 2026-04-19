@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import type { ConditionNote, HardBlock, IntakeCategoryId } from "@/lib/intake-flow/types";
+import type { IntakeCategoryId } from "@/lib/intake-flow/types";
 import { IntakeBigChoice } from "@/components/intake/intake-big-choice";
 import { IntakeMultiPick } from "@/components/intake/intake-multi-pick";
 import type { CategoryModulePayload } from "@/components/intake/modules/types";
@@ -28,7 +28,7 @@ const D1 = [
 export function HousewaresModule({ onComplete }: { onComplete: (p: CategoryModulePayload) => void }) {
   const [step, setStep] = useState<"intro" | "d1" | "d2" | "d2b" | "d3" | "d4" | "d5">("intro");
   const [types, setTypes] = useState<Set<string>>(new Set());
-  const [p, setP] = useState<CategoryModulePayload>({ blocks: [], recycling: [], retailNotes: [] });
+  const [, setP] = useState<CategoryModulePayload>({ blocks: [], recycling: [], retailNotes: [] });
 
   const hasSmallApp = types.has("small_appliances");
   const hasLampsFans = types.has("lamps") || types.has("fans");

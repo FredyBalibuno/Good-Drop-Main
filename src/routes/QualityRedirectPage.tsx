@@ -12,7 +12,7 @@ export default function QualityRedirectPage() {
   }, [navigate]);
 
   return (
-    <div className="mx-auto flex min-h-0 max-w-md flex-1 flex-col space-y-4 py-12 text-center">
+    <div className="mx-auto max-w-md space-y-4 py-12 text-center">
       <p className="text-sm text-muted-foreground">Redirecting to the combined list + quality flow…</p>
       <Link to="/donate/plan" className={cn(buttonVariants(), "no-underline")}>
         Go to plan your drop-off

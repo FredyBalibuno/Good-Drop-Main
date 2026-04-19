@@ -84,6 +84,8 @@ export const SEED_SUBMISSIONS: DonationSubmission[] = [
     },
     qualityTier: "good",
     qualityMessage: "These items look suitable for donation",
+    donationType: "dropoff",
+    pickupDetails: null,
   },
   {
     id: "seed-2",
@@ -105,6 +107,8 @@ export const SEED_SUBMISSIONS: DonationSubmission[] = [
     },
     qualityTier: "mixed",
     qualityMessage: "Some items may not be accepted",
+    donationType: "dropoff",
+    pickupDetails: null,
   },
 ];
 

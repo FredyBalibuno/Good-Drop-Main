@@ -10,7 +10,7 @@ export default function DonationGuidancePage() {
   const { demand } = useDonationStore();
 
   return (
-    <div className="flex min-h-0 flex-1 flex-col space-y-10">
+    <div className="space-y-10">
       <div className="max-w-2xl space-y-3">
         <h1 className="text-3xl font-semibold tracking-tight sm:text-4xl">
           Full needs list — optional deep dive

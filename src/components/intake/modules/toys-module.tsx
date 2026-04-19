@@ -31,7 +31,7 @@ const K1 = [
 export function ToysModule({ onComplete }: { onComplete: (p: CategoryModulePayload) => void }) {
   const [step, setStep] = useState<"intro" | "k1" | "k2" | "k3" | "k4" | "k5" | "k6">("intro");
   const [types, setTypes] = useState<Set<string>>(new Set());
-  const [p, setP] = useState<CategoryModulePayload>({ blocks: [], recycling: [], retailNotes: [] });
+  const [, setP] = useState<CategoryModulePayload>({ blocks: [], recycling: [], retailNotes: [] });
 
   const hasGames = types.has("board") || types.has("puzzles");
 

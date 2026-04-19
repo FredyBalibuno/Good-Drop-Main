@@ -38,6 +38,8 @@ export function buildSubmissionFromDraft(input: {
   locationId: string;
   locationLabel: string;
   condition: string;
+  donationType?: DonationSubmission["donationType"];
+  pickupDetails?: DonationSubmission["pickupDetails"];
 }): DonationSubmission {
   const tiers = input.items.map((i) => i.lineQuality?.tier ?? "mixed");
   const worst = worstTier(tiers);
@@ -47,6 +49,8 @@ export function buildSubmissionFromDraft(input: {
   return {
     id: typeof crypto !== "undefined" ? crypto.randomUUID() : `sub-${Date.now()}`,
     createdAt: new Date().toISOString(),
+    donationType: input.donationType ?? "dropoff",
+    pickupDetails: input.pickupDetails ?? null,
     items: input.items,
     dropoffDate: input.dropoffDate,
     arrivalTime: input.arrivalTime,

@@ -35,7 +35,7 @@ const G1 = [
 export function FurnitureModule({ onComplete }: { onComplete: (p: CategoryModulePayload) => void }) {
   const [step, setStep] = useState<"intro" | "g1" | "g2" | "g3" | "g4" | "g5" | "g6" | "g7" | "g8">("intro");
   const [types, setTypes] = useState<Set<string>>(new Set());
-  const [p, setP] = useState<CategoryModulePayload>({ blocks: [], recycling: [], retailNotes: [] });
+  const [, setP] = useState<CategoryModulePayload>({ blocks: [], recycling: [], retailNotes: [] });
 
   const toggle = (id: string) =>
     setTypes((prev) => {

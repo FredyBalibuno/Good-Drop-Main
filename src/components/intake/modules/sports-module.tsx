@@ -28,7 +28,7 @@ const J1 = [
 export function SportsModule({ onComplete }: { onComplete: (p: CategoryModulePayload) => void }) {
   const [step, setStep] = useState<"intro" | "j1" | "j2" | "j3" | "j4" | "j5">("intro");
   const [types, setTypes] = useState<Set<string>>(new Set());
-  const [p, setP] = useState<CategoryModulePayload>({ blocks: [], recycling: [], retailNotes: [] });
+  const [, setP] = useState<CategoryModulePayload>({ blocks: [], recycling: [], retailNotes: [] });
 
   const bigMachine = types.has("treadmill") || types.has("stationary");
 

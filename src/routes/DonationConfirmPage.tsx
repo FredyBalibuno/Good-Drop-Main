@@ -28,8 +28,8 @@ export default function DonationConfirmPage() {
   const isPickup = submission.donationType === "pickup";
 
   return (
-    <div className="flex min-h-0 flex-1 flex-col space-y-10">
-      <div className="flex flex-col gap-4 rounded-2xl border border-border bg-card p-6 shadow-md sm:flex-row sm:items-start sm:justify-between">
+    <div className="space-y-10">
+      <div className="flex shrink-0 flex-col gap-4 rounded-2xl border border-border bg-card p-6 shadow-md sm:flex-row sm:items-start sm:justify-between">
         <div className="space-y-3">
           <Badge variant="secondary" className="w-fit rounded-full font-semibold">
             {isPickup ? "Pickup requested" : "Drop-off logged"}
@@ -49,7 +49,7 @@ export default function DonationConfirmPage() {
       </div>
 
       {isPickup && submission.pickupDetails ? (
-        <Card className="rounded-2xl border border-emerald-600/35 bg-card shadow-md ring-1 ring-black/5 dark:ring-white/10">
+        <Card className="shrink-0 rounded-2xl border border-emerald-600/35 bg-card shadow-md ring-1 ring-black/5 dark:ring-white/10">
           <CardContent className="space-y-3 p-6">
             <p className="font-semibold text-emerald-900 dark:text-emerald-100">Pickup details</p>
             <div className="grid gap-2 text-sm text-foreground/90 sm:grid-cols-2">
@@ -72,7 +72,7 @@ export default function DonationConfirmPage() {
         />
       )}
 
-      <Card className="border border-border bg-card shadow-md ring-1 ring-black/5 dark:ring-white/10">
+      <Card className="shrink-0 border border-border bg-card shadow-md ring-1 ring-black/5 dark:ring-white/10">
         <CardContent className="space-y-3 p-6">
           <p className="text-sm font-semibold text-primary">How this helps operations</p>
           <p className="text-sm leading-relaxed text-foreground/90">
@@ -87,7 +87,7 @@ export default function DonationConfirmPage() {
         </CardContent>
       </Card>
 
-      <div className="rounded-xl border border-border bg-card p-4 text-sm shadow-md ring-1 ring-black/5 dark:ring-white/10">
+      <div className="shrink-0 rounded-xl border border-border bg-card p-4 text-sm shadow-md ring-1 ring-black/5 dark:ring-white/10">
         <p className="font-medium text-foreground">Assistant summary</p>
         <p className="mt-1 text-foreground/90">{submission.qualityMessage}</p>
       </div>
