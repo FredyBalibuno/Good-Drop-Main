@@ -1,18 +1,14 @@
 import { MongoClient, ObjectId } from "mongodb";
 import { OAuth2Client } from "google-auth-library";
 import { GoogleGenerativeAI } from "@google/generative-ai";
-import { ElevenLabsClient } from "@elevenlabs/elevenlabs-js";
 
 const URI = process.env.MONGODB_URI;
 const DB_NAME = process.env.MONGODB_DB ?? "gooddrop";
 const GOOGLE_CLIENT_ID = process.env.GOOGLE_CLIENT_ID;
 const GEMINI_API_KEY = process.env.GEMINI_API_KEY;
 
-const ELEVENLABS_API_KEY = process.env.ELEVENLABS_API_KEY;
-
 const googleClient = new OAuth2Client(GOOGLE_CLIENT_ID);
 const genAI = GEMINI_API_KEY ? new GoogleGenerativeAI(GEMINI_API_KEY) : null;
-const elevenlabs = ELEVENLABS_API_KEY ? new ElevenLabsClient({ apiKey: ELEVENLABS_API_KEY }) : null;
 
 const CHAT_SYSTEM = `You are a donation assistant for Goodwill of Greater Washington (DC Goodwill).
 Your ONLY purpose is to help donors understand what Goodwill will and will not accept.
@@ -244,21 +240,6 @@ export default async function handler(req, res) {
       }
       const result = await chat.sendMessage(parts);
       res.status(200).json({ reply: result.response.text() });
-      return;
-    }
-
-    // POST /api/tts
-    if (pathname === "/api/tts" && req.method === "POST") {
-      if (!elevenlabs) { res.status(503).json({ error: "ELEVENLABS_API_KEY is not set" }); return; }
-      const body = await readBody(req);
-      if (!body?.text) { res.status(400).json({ error: "Expected { text }" }); return; }
-      const audioStream = await elevenlabs.textToSpeech.convert(
-        body.voiceId ?? "JBFqnCBsd6RMkjVDRZzb",
-        { text: body.text, model_id: "eleven_turbo_v2_5", output_format: "mp3_44100_128" },
-      );
-      res.setHeader("Content-Type", "audio/mpeg");
-      for await (const chunk of audioStream) res.write(chunk);
-      res.end();
       return;
     }
 

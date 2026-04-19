@@ -3,7 +3,7 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
-import { MessageCircle, X, Send, ImagePlus, Loader2, Trash2, Volume2, VolumeX } from "lucide-react";
+import { MessageCircle, X, Send, ImagePlus, Loader2, Trash2 } from "lucide-react";
 import { apiUrl } from "@/lib/api";
 
 type Role = "user" | "assistant";
@@ -41,37 +41,9 @@ export function DonationChatbot() {
   const [input, setInput] = useState("");
   const [image, setImage] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
-  const [speakingId, setSpeakingId] = useState<string | null>(null);
-  const audioRef = useRef<HTMLAudioElement | null>(null);
   const bottomRef = useRef<HTMLDivElement>(null);
   const fileRef = useRef<HTMLInputElement>(null);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
-
-  const speak = useCallback(async (id: string, text: string) => {
-    if (speakingId === id) {
-      audioRef.current?.pause();
-      setSpeakingId(null);
-      return;
-    }
-    audioRef.current?.pause();
-    setSpeakingId(id);
-    try {
-      const res = await fetch(apiUrl("/api/tts"), {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ text }),
-      });
-      const blob = await res.blob();
-      const url = URL.createObjectURL(blob);
-      const audio = new Audio(url);
-      audioRef.current = audio;
-      audio.onended = () => setSpeakingId(null);
-      audio.onerror = () => setSpeakingId(null);
-      void audio.play();
-    } catch {
-      setSpeakingId(null);
-    }
-  }, [speakingId]);
 
   useEffect(() => {
     if (open) bottomRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -174,27 +146,15 @@ export function DonationChatbot() {
                 {m.image && (
                   <img src={m.image} alt="uploaded" className="max-h-40 max-w-[220px] rounded-xl object-cover border border-border/40" />
                 )}
-                <div className="flex items-end gap-1">
-                  {m.role === "assistant" && (
-                    <button
-                      type="button"
-                      onClick={() => void speak(m.id, m.text)}
-                      className="shrink-0 text-muted-foreground hover:text-sky-600 transition-colors mb-1"
-                      aria-label="Read aloud"
-                    >
-                      {speakingId === m.id ? <VolumeX className="size-3.5" /> : <Volume2 className="size-3.5" />}
-                    </button>
+                <div
+                  className={cn(
+                    "max-w-[85%] rounded-2xl px-3 py-2 text-sm leading-relaxed",
+                    m.role === "user"
+                      ? "bg-sky-700 text-white rounded-br-sm"
+                      : "bg-muted text-foreground rounded-bl-sm",
                   )}
-                  <div
-                    className={cn(
-                      "max-w-[85%] rounded-2xl px-3 py-2 text-sm leading-relaxed",
-                      m.role === "user"
-                        ? "bg-sky-700 text-white rounded-br-sm"
-                        : "bg-muted text-foreground rounded-bl-sm",
-                    )}
-                  >
-                    {m.text}
-                  </div>
+                >
+                  {m.text}
                 </div>
               </div>
             ))}
