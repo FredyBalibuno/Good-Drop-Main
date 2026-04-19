@@ -135,6 +135,7 @@ export function buildSubmissionFromIntake(input: {
 
   return {
     id: newId(),
+    confirmationCode: "GD-" + newId().replace(/-/g, "").slice(0, 6).toUpperCase(),
     createdAt: new Date().toISOString(),
     donationType: input.donationType,
     pickupDetails: input.pickupDetails ?? null,

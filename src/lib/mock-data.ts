@@ -66,6 +66,7 @@ export function getPartnerCenterLabel(id: string): string {
 export const SEED_SUBMISSIONS: DonationSubmission[] = [
   {
     id: "seed-1",
+    confirmationCode: "GD-SEED01",
     createdAt: new Date().toISOString(),
     items: [
       { id: "s1", category: "Winter coats", quantity: 6, unit: "pieces" },
@@ -89,6 +90,7 @@ export const SEED_SUBMISSIONS: DonationSubmission[] = [
   },
   {
     id: "seed-2",
+    confirmationCode: "GD-SEED02",
     createdAt: new Date().toISOString(),
     items: [
       { id: "s3", category: "Office chairs", quantity: 3, unit: "pieces" },
