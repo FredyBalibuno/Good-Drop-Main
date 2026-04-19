@@ -9,7 +9,6 @@ import { GOODWILL_GW_LOCATIONS, getGwLocationLabel } from "@/lib/intake-flow/gw-
 import { PROHIBITED_QUESTIONS } from "@/lib/intake-flow/prohibited-questions";
 import { buildSubmissionFromIntake } from "@/lib/intake-flow/submission-from-intake";
 import type { ConditionNote, HardBlock, IntakeCategoryId } from "@/lib/intake-flow/types";
-import { IntakeBigChoice } from "@/components/intake/intake-big-choice";
 import { AccessoriesModule } from "@/components/intake/modules/accessories-module";
 import { ArtModule } from "@/components/intake/modules/art-module";
 import { BooksMediaModule } from "@/components/intake/modules/books-media-module";
@@ -82,7 +81,7 @@ export function IntakeWizard() {
   const [catIndex, setCatIndex] = useState(0);
   const [recycling, setRecycling] = useState<ConditionNote[]>([]);
   const [blocks, setBlocks] = useState<HardBlock[]>([]);
-  const [prohibitedIdx, setProhibitedIdx] = useState(0);
+  const [prohibitedSelected, setProhibitedSelected] = useState<string[]>([]);
   const [bagBand, setBagBand] = useState("");
   const [donorNotes, setDonorNotes] = useState("");
 
@@ -120,20 +119,13 @@ export function IntakeWizard() {
     [mergeModulePayload, orderedCats.length],
   );
 
-  const onProhibitedPick = useCallback(
-    (yes: boolean) => {
-      const q = PROHIBITED_QUESTIONS[prohibitedIdx];
-      if (yes) {
-        setBlocks((b) => [...b, { id: `prohibited-${q.id}`, message: q.blockMessage, alternatives: q.alternatives }]);
-      }
-      if (prohibitedIdx >= PROHIBITED_QUESTIONS.length - 1) {
-        setSection(4);
-      } else {
-        setProhibitedIdx((i) => i + 1);
-      }
-    },
-    [prohibitedIdx],
-  );
+  const onProhibitedContinue = useCallback(() => {
+    const newBlocks = PROHIBITED_QUESTIONS
+      .filter((q) => prohibitedSelected.includes(q.id))
+      .map((q) => ({ id: `prohibited-${q.id}`, message: q.blockMessage, alternatives: q.alternatives }));
+    setBlocks((b) => [...b, ...newBlocks]);
+    setSection(4);
+  }, [prohibitedSelected]);
 
   const handleSubmit = useCallback(() => {
     if (!section0Valid || !bagBand) return;
@@ -190,7 +182,7 @@ export function IntakeWizard() {
     if (section === 0) return donationType === "pickup" ? "Your details & pickup date" : "Donor identification";
     if (section === 1) return "What are you bringing?";
     if (section === 2 && currentCat) return INTAKE_CATEGORIES.find((c) => c.id === currentCat)?.label ?? "";
-    if (section === 3) return "Prohibited items";
+    if (section === 3) return "Do you have any of these items?";
     if (section === 4) return "How to pack (routing)";
     if (section === 5) return "Almost done";
     if (section === "pickup-details") return "Pickup details";
@@ -365,21 +357,40 @@ export function IntakeWizard() {
             </div>
           )}
 
-          {/* ── Section 3 — Prohibited ── */}
+          {/* ── Section 3 — Prohibited grid ── */}
           {section === 3 && (
-            <div className="space-y-4">
-              <p className="text-sm font-medium text-foreground">
-                Please confirm you are not bringing any of the following items.
+            <div className="space-y-6">
+              <p className="text-sm text-muted-foreground">
+                Select any items you plan to include. These cannot be accepted — we'll let you know what to do with them instead. Select none if none apply.
               </p>
-              <IntakeBigChoice
-                question={PROHIBITED_QUESTIONS[prohibitedIdx]?.prompt ?? ""}
-                hint={`Question ${prohibitedIdx + 1} of ${PROHIBITED_QUESTIONS.length}`}
-                yesEmoji="⚠️"
-                noEmoji="✅"
-                yesLabel="Yes — I'm bringing some"
-                noLabel="No — not bringing these"
-                onPick={onProhibitedPick}
-              />
+              <div className="grid grid-cols-2 gap-3 sm:grid-cols-3">
+                {PROHIBITED_QUESTIONS.map((q) => {
+                  const on = prohibitedSelected.includes(q.id);
+                  return (
+                    <button
+                      key={q.id}
+                      type="button"
+                      onClick={() =>
+                        setProhibitedSelected((prev) =>
+                          prev.includes(q.id) ? prev.filter((x) => x !== q.id) : [...prev, q.id],
+                        )
+                      }
+                      className={cn(
+                        "flex flex-col items-center justify-center gap-2 rounded-2xl border-2 p-4 text-center text-xs font-semibold transition-all",
+                        on
+                          ? "border-rose-500 bg-rose-500/10 shadow-md ring-1 ring-rose-500/20"
+                          : "border-border/80 bg-card hover:border-rose-400/40 hover:shadow-sm",
+                      )}
+                    >
+                      <span className="text-3xl leading-none" aria-hidden>{q.emoji}</span>
+                      <span className="leading-snug">{q.label}</span>
+                    </button>
+                  );
+                })}
+              </div>
+              <Button className="rounded-full" onClick={onProhibitedContinue}>
+                {prohibitedSelected.length > 0 ? `Continue (${prohibitedSelected.length} flagged)` : "None of these — continue"}
+              </Button>
             </div>
           )}
 

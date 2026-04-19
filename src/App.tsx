@@ -17,7 +17,7 @@ function StaffGuard() {
   return isStaff ? <Outlet /> : <Navigate to="/staff/login" replace />;
 }
 
-
+function RootShell() {
   return (
     <div className="flex min-h-screen flex-col">
       <SiteHeader />

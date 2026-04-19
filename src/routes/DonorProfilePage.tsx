@@ -62,7 +62,9 @@ export default function DonorProfilePage() {
     );
   }
 
-  const data = profile ?? { ...user, submissions: [] };
+  const data: ProfileData = profile
+    ? { ...profile, rating: Math.max(profile.rating, user.rating) }
+    : { ...user, submissions: [] };
   const pickupUnlocked = data.rating >= 4.0;
   return (
     <div className="mx-auto max-w-3xl space-y-8 px-4 py-10 sm:px-6">
