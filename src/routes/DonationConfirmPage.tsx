@@ -1,5 +1,5 @@
 import { Link, useNavigate } from "react-router-dom";
-import { useEffect, useMemo } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useDonationStore } from "@/context/donation-store";
 import { useAuth } from "@/context/auth-context";
 import { DonationSummaryCard } from "@/components/dropiq/donation-summary-card";
@@ -8,12 +8,12 @@ import { cn } from "@/lib/utils";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { PartyPopper, Truck, Copy, Check } from "lucide-react";
-import { useState } from "react";
 
 export default function DonationConfirmPage() {
   const navigate = useNavigate();
   const { submissions, lastSubmissionId } = useDonationStore();
   const { user } = useAuth();
+  const [copied, setCopied] = useState(false);
 
   const submission = useMemo(
     () => submissions.find((s) => s.id === lastSubmissionId) ?? submissions[0] ?? null,
@@ -27,10 +27,9 @@ export default function DonationConfirmPage() {
   if (!submission) return null;
 
   const isPickup = submission.donationType === "pickup";
-  const [copied, setCopied] = useState(false);
 
   function copyCode() {
-    void navigator.clipboard.writeText(submission.confirmationCode);
+    void navigator.clipboard.writeText(submission!.confirmationCode);
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
   }
@@ -64,7 +63,6 @@ export default function DonationConfirmPage() {
               {copied ? <Check className="size-4 text-emerald-500" /> : <Copy className="size-4 text-muted-foreground" />}
             </button>
           </div>
-          </p>
         </div>
         <span className="flex size-14 shrink-0 items-center justify-center rounded-2xl border border-emerald-500/35 bg-emerald-50 text-emerald-900 dark:bg-emerald-950/80 dark:text-emerald-100">
           {isPickup ? <Truck className="size-7" aria-hidden /> : <PartyPopper className="size-7" aria-hidden />}
