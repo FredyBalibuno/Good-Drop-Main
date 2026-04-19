@@ -1,6 +1,7 @@
-import { BrowserRouter, Outlet, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Navigate, Outlet, Route, Routes } from "react-router-dom";
 import { Providers } from "@/components/providers";
 import { SiteHeader } from "@/components/dropiq/site-header";
+import { useStaffAuth } from "@/context/staff-auth-context";
 import AdminDashboardPage from "@/routes/AdminDashboardPage";
 import DonateLayout from "@/routes/DonateLayout";
 import DonationConfirmPage from "@/routes/DonationConfirmPage";
@@ -9,8 +10,14 @@ import DonorProfilePage from "@/routes/DonorProfilePage";
 import HomePage from "@/routes/HomePage";
 import PlanDonationPage from "@/routes/PlanDonationPage";
 import QualityRedirectPage from "@/routes/QualityRedirectPage";
+import StaffLoginPage from "@/routes/StaffLoginPage";
 
-function RootShell() {
+function StaffGuard() {
+  const { isStaff } = useStaffAuth();
+  return isStaff ? <Outlet /> : <Navigate to="/staff/login" replace />;
+}
+
+
   return (
     <div className="flex min-h-screen flex-col">
       <SiteHeader />
@@ -29,7 +36,10 @@ export default function App() {
         <Routes>
           <Route element={<RootShell />}>
             <Route path="/" element={<HomePage />} />
-            <Route path="/admin" element={<AdminDashboardPage />} />
+            <Route path="/staff/login" element={<StaffLoginPage />} />
+            <Route element={<StaffGuard />}>
+              <Route path="/admin" element={<AdminDashboardPage />} />
+            </Route>
             <Route path="/profile" element={<DonorProfilePage />} />
             <Route path="/donate" element={<DonateLayout />}>
               <Route path="plan" element={<PlanDonationPage />} />
