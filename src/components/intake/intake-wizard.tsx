@@ -1,7 +1,7 @@
 "use client";
 
 import { Link, useNavigate } from "react-router-dom";
-import { useCallback, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { useDonationStore } from "@/context/donation-store";
 import { useAuth } from "@/context/auth-context";
 import { INTAKE_CATEGORIES } from "@/lib/intake-flow/categories";
@@ -58,9 +58,12 @@ export function IntakeWizard() {
 
   const canPickup = user && user.rating >= 4.0;
 
-  // Start at "type" chooser if pickup is unlocked, else skip straight to section 0
-  const [section, setSection] = useState<WizardSection>(canPickup ? "type" : 0);
+  const [section, setSection] = useState<WizardSection>(0);
   const [donationType, setDonationType] = useState<"dropoff" | "pickup">("dropoff");
+
+  useEffect(() => {
+    if (canPickup) setSection((s) => s === 0 ? "type" : s);
+  }, [canPickup]);
 
   // Donor info
   const [fullName, setFullName] = useState("");
