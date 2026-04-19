@@ -17,7 +17,6 @@ export function SiteHeader() {
   const { pathname } = useLocation();
   const { user, signIn, signOut } = useAuth();
   const { isStaff, signOut: staffSignOut } = useStaffAuth();
-  const onAdminPage = pathname.startsWith("/admin");
 
   return (
     <header className="fixed inset-x-0 top-0 z-40 border-b border-border/60 bg-background/95 backdrop-blur-md">
@@ -55,7 +54,7 @@ export function SiteHeader() {
             })}
           </nav>
 
-          {onAdminPage && isStaff && (
+          {isStaff && (
             <Button variant="outline" size="sm" onClick={staffSignOut} className="rounded-full text-xs">
               Staff sign out
             </Button>
